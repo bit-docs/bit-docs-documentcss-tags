@@ -1,0 +1,19 @@
+{
+  "name": "bit-docs-documentcss-tags",
+  "version": "0.0.0",
+  "description": "Aliases @stylesheet to @page, adds @style for DocumentCSS",
+  "main": "bit-docs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "documentcss",
+    "bit-docs",
+    "plugin"
+  ],
+  "author": "Bitovi",
+  "license": "MIT",
+  "dependencies": {
+    "bit-docs-dev": "github:bit-docs/bit-docs-dev"
+  }
+}
