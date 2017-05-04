@@ -2,18 +2,32 @@
   "name": "bit-docs-documentcss-tags",
   "version": "0.0.0",
   "description": "Aliases @stylesheet to @page, adds @style for DocumentCSS",
-  "main": "bit-docs.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
-    "documentcss",
     "bit-docs",
+    "documentcss",
     "plugin"
   ],
-  "author": "Bitovi",
   "license": "MIT",
+  "author": "Bitovi",
+  "main": "bit-docs.js",
+  "scripts": {
+    "release:major": "npm version major && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:patch": "npm version patch && npm publish",
+    "release:pre": "npm version prerelease && npm publish",
+    "test": "mocha test.js --reporter spec",
+    "preversion": "npm test",
+    "postversion": "git push --tags && git push"
+  },
   "dependencies": {
     "bit-docs-dev": "github:bit-docs/bit-docs-dev"
+  },
+  "devDependencies": {
+    "bit-docs-generate-html": "0.5.0-pre.4",
+    "express": "^4.15.2",
+    "mocha": "^3.2.0",
+    "rimraf": "^2.6.1",
+    "steal": "^1.5.2",
+    "zombie": "^5.0.5"
   }
 }

@@ -31,6 +31,7 @@ var pageTag = require('bit-docs-dev/tags/page');
 	 */
 	module.exports = {
 		add: function( line ) {
-      pageTag(line);
+      this.alias = 'stylesheet';
+      pageTag.add.call(this, line);
 		}
 	};
