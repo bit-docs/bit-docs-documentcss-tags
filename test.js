@@ -1,10 +1,11 @@
+var Browser = require('zombie');
+var assert = require('assert');
+var express = require('express');
+var generate = require('bit-docs-generate-html/generate');
 var path = require('path');
 var rmrf = require('rimraf');
-var assert = require('assert');
-var Browser = require('zombie');
-var express = require('express');
+var style = require('./tags/style');
 var stylesheet = require('./tags/stylesheet');
-var generate = require('bit-docs-generate-html/generate');
 
 Browser.localhost('*.example.com', 3003);
 
@@ -42,6 +43,7 @@ describe('bit-docs-documentcss-tags', function () {
 			var docMap = Promise.resolve({
 				index: {
 					name: "index",
+          type: "stylesheet",
 					body: "This is the @stylesheet generated page."
 				}
 			});
@@ -61,9 +63,29 @@ describe('bit-docs-documentcss-tags', function () {
 
 	describe('tag', function () {
     it("@stylesheet",function(){
+      var obj = {};
+      stylesheet.add.call(obj, "@stylesheet mypage My Page");
+      assert.deepEqual(obj, {name: "mypage", title: "My Page", type: "page",
+                       type: "stylesheet", showChildrenInPage: true,
+                       hideChildrenInMenu: true});
+    });
+
+    it("@style",function(){
+      var parentObj = {};
       var obj = {}
-      stylesheet.add.call(obj,"@stylesheet mypage My Page");
-      assert.deepEqual(obj, {name: "mypage", title: "My Page", type: "page", alias: "stylesheet"});
+      var scope = stylesheet.add.call(parentObj, "@stylesheet mypage My Page");
+      console.log('@stylesheet', parentObj);
+      style.add.call(obj, "@style food-icons Food Icons 1", '', scope, parentObj);
+      console.log('@style', obj);
+      //style.add.call(obj, "@style misc-icons Misc Icons 1\n@parent lib/icons");
+      assert.deepEqual(obj, {
+        name: 'food-icons',
+        title: 'Food Icons 1',
+        order: 0,
+        type: 'style',
+        parent: null,
+        hideInParentMenu: true
+      });
     });
 
 		describe('generated page', function () {
